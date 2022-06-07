@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/user.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/www/js/whistle/edit.js"></script>
+<script type="text/javascript" src="/www/js/member/edit.js"></script>
 <style type="text/css">
 	.avtimg {
 		width: 100px;
@@ -93,7 +93,7 @@
 				<label class="w3-col s3 w3-right-align clrgrey ft14 mgb10">아 바 타 : </label>
 				<div class="w3-col s8 mgl10 mgb10 w3-center">
 						<div class="avtboxfr w3-center w3-margin-top" id="avt">
-		<c:forEach var="data" items="${LIST}">
+<c:forEach var="data" items="${LIST}">
 						 	<div class="avtbox">
 						 		<label for="avt${data.ano}">
 						 			<img src="/www/img/avatar/${data.savename}" class="w3-col avtimg">
@@ -105,7 +105,7 @@
 						 		<input type="radio" name="ano" id="avt${data.ano}" value="${data.ano}">
 				</c:if>
 						 	</div>
-		</c:forEach>
+</c:forEach>
 						</div>
 				</div>
 			</div>
@@ -116,6 +116,19 @@
 			<div class="w3-third w3-deep-orange w3-hover-orange w3-button" id="rbtn">reset</div> 
 			<div class="w3-third w3-green w3-hover-lime w3-button" id="hbtn">home</div> 
 			<div class="w3-third w3-blue w3-hover-aqua w3-button" id="ebtn">edit</div> 
+		</div>
+	</div>
+	
+	<div id="msgWin" class="w3-modal">
+		<div class="w3-modal-content w3-animate-top w3-card-4">
+			<header class=w3-container w3-red">
+				<span class="w3-button w3-display-topright" 
+											id="msgClose">&times;</span>
+				<h2>알림 메세지</h2>
+			</header>
+			<div class="w3-container">
+				<h3 class="w3-center w3-margin-top w3-margin-bottom" id="msg">변경된 내용이 없습니다.</h3>
+			</div>
 		</div>
 	</div>
 </body>

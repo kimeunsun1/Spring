@@ -51,4 +51,9 @@ public class MemberDao {
 	public int delMember(String id) {
 		return sqlSession.update("mSQL.delMember", id);
 	}
+	
+	// 내 정보 수정 데이터베이스 작업 전담 처리함수
+	@RequestMapping("/imfoEditProc.blp") {
+		
+	}
 }
