@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.githrd.www.dao.MemberDao;
-import com.githrd.www.vo.MemberVO;
+import com.githrd.www.dao.*;
+import com.githrd.www.vo.*;
 
 @Controller
 @RequestMapping("/member")
 public class Member {
 	@Autowired
 	MemberDao mDao;
+	@Autowired
+	GBoardDao gDao;
 	
 	@RequestMapping("/login.blp")
 	public ModelAndView loginForm(ModelAndView mv, HttpSession session) {
@@ -42,7 +44,15 @@ public class Member {
 		int cnt = mDao.getLogin(mVO);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());
-			rv.setUrl("/www/main.blp");
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+			if(count == 0) {
+				rv.setUrl("/www/gBoard/gBoardList.blp");
+			} else {
+				rv.setUrl("/www/main.blp");
+			}
 		} else {
 			rv.setUrl("/www/member/login.blp");
 		}
@@ -103,10 +113,20 @@ public class Member {
 	*/
 	
 	@RequestMapping("/logout.blp")
-	public ModelAndView logout(ModelAndView mv, HttpSession session, RedirectView rv) {
+	public ModelAndView logout(ModelAndView mv, HttpSession session, String vw, String nowPage) {
 		session.removeAttribute("SID");
-		rv.setUrl("/www/");
-		mv.setView(rv);
+		
+		if(vw == null) {
+			vw = "/www/";
+		}
+		
+		if(nowPage != null) {
+			mv.addObject("NOWPAGE", nowPage);
+		}
+		
+		mv.addObject("VIEW", vw);
+		
+		mv.setViewName("member/redirect");
 		return mv;
 	}
 	
@@ -151,11 +171,22 @@ public class Member {
 	@RequestMapping(path="/joinProc.blp", method=RequestMethod.POST)
 	public ModelAndView joinProc(MemberVO mVO, ModelAndView mv, 
 									RedirectView rv, HttpSession session) {
+//		System.out.println("########### before mno : " + mVO.getMno());
 		int cnt = mDao.addMember(mVO);
+//		System.out.println("########### after mno : " + mVO.getMno());
+		
 		if(cnt == 1) {
 			// 성공한 경우
 			session.setAttribute("SID", mVO.getId());
-			rv.setUrl("/www/");
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+			if(count == 0) {
+				rv.setUrl("/www/gBoard/gBoardList.blp");
+			} else {
+				rv.setUrl("/www/main.blp");
+			}
 		} else {
 			rv.setUrl("/www/member/join.blp");
 		}
@@ -170,10 +201,10 @@ public class Member {
 		// 데이터 가져오고
 		MemberVO mVO = mDao.getIdInfo(id);
 		// 뷰에 데이터 심고
-		mv.addObject("DATA", mVO);
+		mv.addObject("DATA" , mVO);
 		// 뷰 정하고
-			mv.setViewName("member/memberInfo");
-			
+		mv.setViewName("member/memberInfo");
+		
 		return mv;
 	}
 	
@@ -182,7 +213,7 @@ public class Member {
 		// 데이터 가져오고
 		MemberVO mVO = mDao.getMnoInfo(mno);
 		// 뷰에 데이터 심고
-		mv.addObject("DATA", mVO);
+		mv.addObject("DATA" , mVO);
 		// 뷰 정하고
 		mv.setViewName("member/memberInfo");
 		
@@ -192,7 +223,7 @@ public class Member {
 	@RequestMapping("/memberList.blp")
 	public ModelAndView memberList(ModelAndView mv) {
 		// 데이터 가져오고...
-		List<MemberVO> list =mDao.membList();
+		List<MemberVO> list = mDao.membList();
 		// 데이터 심고
 		mv.addObject("LIST", list);
 		// 뷰 설정하고
@@ -227,6 +258,49 @@ public class Member {
 		}
 		
 		mv.setView(rv);
+		return mv;
+	}
+	
+	// 회원정보 수정 폼보기 요청 처리함수
+	@RequestMapping("/myInfoEdit.blp")
+	public ModelAndView myInfoEdit(ModelAndView mv, String id, HttpSession session, RedirectView rv) {
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/www/member/login.blp");
+			mv.setView(rv);
+			return mv;
+		}
+		
+		if(!id.equals(sid)) {
+			rv.setUrl("/www/main.blp");
+			mv.setView(rv);
+			return mv;
+		}
+		
+		// 데이터베이스 조회
+		MemberVO mVO = mDao.getIdInfo(id);
+		List<MemberVO> list = mDao.getAvtList(id);
+		
+		mv.addObject("DATA", mVO);
+		mv.addObject("LIST", list);
+		
+		// 뷰 정하고
+		mv.setViewName("member/editInfo");
+		return mv;
+	}
+	
+	// 내정보 수정 처리요청 처리 함수
+	@RequestMapping("/infoEditProc.blp")
+	public ModelAndView infoEditProc(ModelAndView mv, MemberVO mVO, RedirectView rv) {
+		int cnt = mDao.editMyInfo(mVO);
+		String view = "member/redirect";
+		if(cnt == 0) {
+			mv.addObject("VIEW", "/www/member/myInfoEdit.blp");
+		} else {
+			mv.addObject("VIEW", "/www/member/myInfo.blp");
+		}
+		
+		mv.setViewName(view);
 		return mv;
 	}
 }

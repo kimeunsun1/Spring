@@ -7,4 +7,9 @@ $(document).ready(function(){
 		$('#frm').attr('action', '/www/member/delMember.blp');
 		$('#frm').submit();
 	});
+	
+	$('#ebtn').click(function(){
+		$('#frm').attr('action', '/www/member/myInfoEdit.blp');
+		$('#frm').submit();
+	});
 });

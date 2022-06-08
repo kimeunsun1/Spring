@@ -5,20 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>BlackPink 방명록</title>
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css">
-<script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/gboard.js"></script>
+<link rel="stylesheet" type="text/css" href="/www/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/www/css/user.css">
+<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/www/js/gBoard/gBoard.js"></script>
 <style type="text/css">
 	.w3-button {
 		padding: 1px 16px;
 	}
 	.box120 {
 		width: 135px;
-	}
-	.mid {
-		position: relative;
-		top: 5px;
 	}
 </style>
 </head>
@@ -46,7 +42,7 @@
 <c:forEach var="data" items="${LIST}">
 		<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
 			<div class="w3-col box120 pdAll10 w3-border-right">
-				<img src="/whistle/resources/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
+				<img src="/www/img/avatar/${data.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
 			</div>
 			<div class="w3-rest w3-padding">
 				<div class="w3-col w3-border-bottom">
@@ -89,7 +85,8 @@
 	</div>
 	
 	<!-- 데이터 전송용 form 태그 -->
-	<form method="POST" action="/whistle/guestBoard/gBoardList.blp" id="frm" name="frm">
+	<form method="POST" action="/www/gBoard/gBoardList.blp" id="frm" name="frm">
+		<input type="hidden" id="view" name="vw" >
 		<input type="hidden" id="nowPage" name="nowPage" value="${PAGE.nowPage}">
 	</form>
 </body>
