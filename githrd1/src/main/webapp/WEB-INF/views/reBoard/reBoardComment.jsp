@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>BlackPink 댓글 게시판 글작성</title>
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css">
-<script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js"></script>
+<link rel="stylesheet" type="text/css" href="/www/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/www/css/user.css">
+<script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/www/js/reBoard/reBoard.js"></script>
 <style type="text/css">
 	.w3-button {
 		padding: 1px 16px;
@@ -45,14 +45,14 @@
 		<div class="w3-col">
 			<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
 				<div class="w3-col box120 pdAll10 w3-border-right">
-					<img src="/whistle/resources/img/avatar/${requestScope.DATA.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
-					<span class="w3-col w3-center ft10 mid"><b>${sessionScope.SID}</b></span>
+					<img src="/www/img/avatar/${DATA.avatar}" class="inblock avtBox100 w3-border w3-border-grey">
+					<span class="w3-col w3-center ft10 mid"><b>${SID}</b></span>
 				</div>
 				<div class="w3-rest w3-padding">
 					<div class="w3-col w3-border-bottom">
 						<span class="w3-col w3-left mgb10 ft10 "><strong>윗글 내용 : </strong>${DATA.body}</span>
 					</div>
-					<form method="POST" action="/whistle/reboard/reboardWriteProc.blp" 
+					<form method="POST" action="/www/reboard/reboardWriteProc.blp" 
 											id="frm" name="frm" class="w3-col w3-margin-top">
 						<input type="hidden" id="nowPage" name="nowPage" value="${param.nowPage}">
 						<input type="hidden" id="mno" name="mno" value="${DATA.mno}">

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sSQL">
+	<!-- 진행중인 설문중 참여하지 않은 설문 갯수 조회 질의명령 -->
+	<select id="remainsurvey" resultType="int" parameterType="sVO">
+		SELECT
+			COUNT(*)
+		FROM
+			surveyInfo
+		WHERE
+			sysdate BETWEEN sistart AND siend
+			AND sino NOT IN(
+				SELECT
+					DISTINCT sq_sino
+				FROM
+					survey, surveyquest, member
+				WHERE
+					sv_sqno = sqno
+					AND smno = mno
+					AND id = #{id}
+			)
+	</select>
+	
+	<!-- 진행중인 설문 리스트 조회 질의명령 -->
+	<select id="ingList" resultType="sVO" parameterType="string">
+		SELECT
+			sino, sititle title,
+			NVL(
+				(SELECT
+					count(DISTINCT sq_sino)
+				FROM
+					survey, surveyQuest, member
+				WHERE
+					sv_sqno = sqno
+					AND smno = mno
+					AND id = #{id}
+				GROUP BY
+					sq_sino
+				HAVING
+					sq_sino = sino), 0) cnt
+		FROM
+			surveyinfo
+		WHERE
+			sysdate BETWEEN sistart AND siend
+	</select>
+	
+	<select id="oldList" resultType="sVO">
+		SELECT
+			sino, sititle title
+		FROM
+			surveyinfo
+		WHERE
+			siend <![CDATA[<]]> sysdate
+	</select>
+	
+	<!-- 설문주제번호로 문항조회 질의명령 -->
+	<select id="questList" resultType="sVO" parameterType="int">
+		SELECT
+			sqno, sqbody body
+		FROM
+			surveyQuest
+		WHERE
+			sq_sino = #{sino}
+			AND squpno IS NULL
+		ORDER BY
+			sqno
+	</select>
+	
+	<!-- 설문 문항번호로 설문 보기 조회 질의명령 -->
+	<select id="bogiList" resultType="sVO" parameterType="int">
+		SELECT
+			sqno, sqbody body
+		FROM
+			surveyQuest
+		WHERE
+			squpno = #{upno}
+		ORDER BY
+			sqno
+	</select>
+	
+	<!-- 계층형 쿼리로 문항리스트 조회 질의명령 -->
+	<select id="qList" resultType="sVO" parameterType="int">
+		SELECT
+			sqno, sqbody body, NVL(squpno, sqno) upno
+		FROM
+			surveyQuest
+		WHERE
+			sq_sino = #{sino}
+		START WITH
+			squpno IS NULL
+		CONNET BY
+			PRIOR sqno = squpno
+		ORDER SIBLINGS BY
+			sqno
+	</select>
+	
+	<!-- 응답 추가 질의명령 -->
+	<insert id="addSurvey" parameterType="sVO">
+		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+			SELECT
+				mno
+			FROM
+				member
+			WHERE
+				id = #{id}
+		</selectKey>
+		INSERT INTO
+			survey(svno, smno, sv_sqno)
+		VALUES(
+			(SELECT NVL(MAX(svno) + 1, 100001) FROM survey),
+			#{mno}, #{sqno}
+		)
+	</insert>
+	<!-- 
+		sv_sqno IN(100001, 100002, ....)
+	 -->
+</mapper>

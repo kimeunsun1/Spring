@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>BlackPink 댓글 게시판 글작성</title>
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/whistle/resources/css/user.css">
-<script type="text/javascript" src="/whistle/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/whistle/resources/js/whistle/reboard.js"></script>
+<link rel="stylesheet" type="text/css" href="/www/resources/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/www/resources/css/user.css">
+<script type="text/javascript" src="/www/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/www/resources/js/whistle/reboard.js"></script>
 <style type="text/css">
 	.w3-button {
 		padding: 1px 16px;

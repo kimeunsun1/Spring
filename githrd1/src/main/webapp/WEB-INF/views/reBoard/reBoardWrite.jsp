@@ -52,7 +52,7 @@
 					<div class="w3-col w3-border-bottom">
 						<span class="w3-third w3-left mgb10 ft10 "><strong>글 내용</strong></span>
 					</div>
-					<form method="POST" action="/whistle/reboard/reboardWriteProc.blp" 
+					<form method="POST" action="/www/reboard/writeProc.blp" 
 											id="frm" name="frm" class="w3-col w3-margin-top">
 						<input type="hidden" id="nowPage" name="nowPage" value="${param.nowPage}">
 						<input type="hidden" id="mno" name="mno" value="${DATA.mno}">

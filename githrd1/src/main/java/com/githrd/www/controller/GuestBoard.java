@@ -16,7 +16,7 @@ import com.githrd.www.vo.BoardVO;
 @Controller
 @RequestMapping("/gBoard")
 public class GuestBoard {
-	@Autowired(required=false)
+	@Autowired
 	GBoardDao gDao;
 	
 	@RequestMapping("/gBoardList.blp")

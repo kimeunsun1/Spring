@@ -26,6 +26,13 @@ public class Member {
 		mv.setViewName("member/login");
 		return mv;
 	}
+	
+	@RequestMapping(path="/login.blp", params={"vw", "nowPage"})
+	public ModelAndView loginForm(ModelAndView mv, HttpSession session, String vw, String nowPage) {
+		mv.setViewName("member/login");
+		return mv;
+	}
+	
 	/*
 	public String loginForm(HttpSession session, HttpServletResponse resp) {
 		
@@ -58,6 +65,24 @@ public class Member {
 		}
 		mv.setView(rv);
 		
+		return mv;
+	}
+	
+	// 댓글게시판에서 로그인 처리를 요청하는 처리함수
+	@RequestMapping(path="/loginProc.blp",method=RequestMethod.POST, params={"id", "pw", "vw","nowPage"})
+	public ModelAndView loginProc(MemberVO mVO, HttpSession session, ModelAndView mv, RedirectView rv, String vw, String nowPage) {
+		int cnt = mDao.getLogin(mVO);
+		if(cnt == 1) {
+			session.setAttribute("SID", mVO.getId()); // 로그인 처리
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+			rv.setUrl(vw + "?nowPage=" + nowPage); // 리다이렉트
+		} else {
+			rv.setUrl("/www/member/login.blp?vw=" + vw + "&nowPage=" + nowPage);
+		}
+		mv.setView(rv);
 		return mv;
 	}
 	/*
@@ -168,6 +193,9 @@ public class Member {
 	}
 	*/
 	
+	/**
+	 * 회원가입 처리요청
+	 */
 	@RequestMapping(path="/joinProc.blp", method=RequestMethod.POST)
 	public ModelAndView joinProc(MemberVO mVO, ModelAndView mv, 
 									RedirectView rv, HttpSession session) {
@@ -193,6 +221,32 @@ public class Member {
 		
 		mv.setView(rv);
 		
+		return mv;
+	}
+	
+	// 댓글게시판에 회원가입 처리요청 처리함수
+	@RequestMapping(path="/joinProc.blp", method=RequestMethod.POST, params= {"vw", "nowPage"})
+	public ModelAndView joinProc(MemberVO mVO, ModelAndView mv,
+			RedirectView rv, HttpSession session, String vw, String nowPage) {
+		int cnt = mDao.addMember(mVO);
+		String view = vw;
+		if(cnt == 1) {
+			// 성공한 경우
+			session.setAttribute("SID", mVO.getId());
+			session.setAttribute("MSG_CHECK", "OK");
+			int count = gDao.getMyCount(mVO.getId());
+			session.setAttribute("CNT", count);
+			
+//			rv.setUrl(vw + "?nowPage=" + nowPage); // get방식 처리
+		} else {
+//			rv.setUrl("/www/member/join.blp?vw=" + vw + "&nowPage=" + nowPage); //	get 방식 처리
+			view = "/www/member/join.blp";
+		}
+		
+//		mv.setView(rv); // get 방식 처리
+		mv.addObject("VIEW", view);
+		mv.addObject("NOWPAGE", nowPage);
+		mv.setViewName("reBoard/redirect");
 		return mv;
 	}
 	
