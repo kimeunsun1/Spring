@@ -52,6 +52,7 @@
 		<servlet-name>resrcServlet</servlet-name>
 		<url-pattern>*.css/</url-pattern>
 		<url-pattern>*.js/</url-pattern>
+		<url-pattern>*.png/</url-pattern>
 		<url-pattern>*.jpg/</url-pattern>
 		<url-pattern>*.img/</url-pattern>
 	</servlet-mapping> 

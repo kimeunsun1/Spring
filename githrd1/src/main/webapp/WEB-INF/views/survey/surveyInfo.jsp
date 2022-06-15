@@ -22,35 +22,46 @@
 </style>
 </head>
 <body>
-	<form method="POST" action="#" id="frm" name="frm">
+	<form method="POST" action="/www/survey/survey.blp" id="frm" name="frm">
 		<input type="hidden" name="id" value="${SID}">
-		<input type="hidden" name="sino" value="${DATA.sino}">
-		<input type="hidden" name="title" value="${DATA.title}">
+		<input type="hidden" name="sino" value="title">
+		<input type="hidden" name="title" value="sino}">
 	</form>
 	
 	<div class="w3-content w3-center mx650">
-		<h1 class="w3-blue w3-padding w3-card-4">설문 조사</h1>
-		
-		<h2 class="w3-col w3-text-indigo w3-margin-bottom w3-margin-top">${DATA.title}</h2>
+		<h1 class="w3-margin-top w3-blue w3-padding w3-card-4">Survey Information</h1>
 		
 <!-- 진행중인 설문 리스트 -->
-		<form name="frm1">
-<c:forEach var="quest" items="${DATA.bogi}" varStatus="st">
-		<div class="w3-col w3-margin-top w3-padding w3-card-4">
-			<h3 class="w3-left-align quest">${st.count}. ${quest.body}</h3>
-			<div class="w3-col" style="padding-left: 50px;">
-	<c:forEach var="answer" items="${quest.bogi}" varStatus="bst">
-				<h4 class="w3-col w3-left-align"><input type="radio" name="${quest.sqno}" id="${answer.sqno}" value="${answer.sqno}"><label for="${answer.sqno}"> ${bst.count}. ${answer.body}</label></h4>
+<c:if test="${not empty ING}">
+		<div class="w3-col w3-left-align w3-card-4">
+			<div class="w3-col w3-blue">
+				<h3 class="w3-padding">진행중인 설문</h3>
+			</div>
+			
+			<div class="w3-col">
+	<c:forEach var="data" items="${ING}" varStatus="st">
+		<c:if test="${data.cnt eq 0}">
+				<h3 class="w3-col w3-button w3-text-blue w3-hover-pink yet" id="${data.sino}">${st.count}. ${data.title}</h3>
+		</c:if>
+		<c:fi test="${data.cnt eq 1}">
+				<h3 class="w3-col w3-button w3-text-grey w3-hover-orange done" id="${data.sino}">"${st.count}. ${data.title}</h3>
+		</c:fi>
 	</c:forEach>				
 			</div>
 		</div>
-</c:forEach>
-		</form>
+</c:if>
+
+<!-- 종료된 설문 리스트 -->
+<c:if test="${not empty OLD}">
 		<div class="w3-col w3-left-align w3-card-4">
-			<div class="w3-third w3-green w3-button" id="lbtn">list</div>
-			<div class="w3-third w3-blue w3-button" id="rbtn">reset</div>
-			<div class="w3-third w3-orange w3-button" id="sbtn">submit</div>
+			<h3 class="w3-amber">종료된 설문</h3>
+			<div class="w3-col">
+	<c:forEach var="data" items="${OLD}" varStatus="st">
+				<h3 id="${data.sino}">${st.count}. ${data.title}</h3>
+	</c:forEach>
+			</div>
 		</div>
+</c:if>
 	</div>
 </body>
 </html>

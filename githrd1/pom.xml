@@ -42,7 +42,11 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>	
-		
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
