@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/www/css/w3.css">
 <link rel="stylesheet" type="text/css" href="/www/css/user.css">
 <script type="text/javascript" src="/www/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/www/js/reBoard/survey.js"></script>
+<script type="text/javascript" src="/www/js/survey/survey.js"></script>
 <style type="text/css">
 	label {
 		font-size: 16px;
@@ -25,7 +25,7 @@
 	<form method="POST" action="/www/survey/survey.blp" id="frm" name="frm">
 		<input type="hidden" name="id" value="${SID}">
 		<input type="hidden" name="sino" value="title">
-		<input type="hidden" name="title" value="sino}">
+		<input type="hidden" name="title" value="sino">
 	</form>
 	
 	<div class="w3-content w3-center mx650">
@@ -43,9 +43,9 @@
 		<c:if test="${data.cnt eq 0}">
 				<h3 class="w3-col w3-button w3-text-blue w3-hover-pink yet" id="${data.sino}">${st.count}. ${data.title}</h3>
 		</c:if>
-		<c:fi test="${data.cnt eq 1}">
+		<c:if test="${data.cnt eq 1}">
 				<h3 class="w3-col w3-button w3-text-grey w3-hover-orange done" id="${data.sino}">"${st.count}. ${data.title}</h3>
-		</c:fi>
+		</c:if>
 	</c:forEach>				
 			</div>
 		</div>

@@ -8,9 +8,9 @@ package com.githrd.www.util;
  * @version	v.1.0
  * 			
  * 			작업이력 ]
- * 				2022/05/17	- 담당자 : 전은석
+ * 				2022/05/17	- 담당자 : 김은선
  * 								클래스제작
- * 				2022/06/07	- 담당자 : 전은석
+ * 				2022/06/07	- 담당자 : 김은선
  * 								setPage() 추가
  * 
  */
@@ -67,9 +67,7 @@ public class PageUtil {
 		setEndPage();
 		setCont();
 	}
-	
-	
-	
+		
 	// 총 페이지 수 계산하는 함수
 	public void setTotalPage() {
 		/*

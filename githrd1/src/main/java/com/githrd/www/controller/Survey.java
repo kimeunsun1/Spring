@@ -2,6 +2,7 @@ package com.githrd.www.controller;
 
 import java.util.*;
 
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,9 @@ import com.githrd.www.vo.*;
 @Controller
 @RequestMapping("/survey")
 public class Survey {
+	
+	private static final Logger surveyLog = LoggerFactory.getLogger(Survey.class);
+	private static final Logger sLog = LoggerFactory.getLogger("surveyLog");
 	@Autowired
 	SurveyDao sDao;
 	@Autowired
@@ -60,12 +64,18 @@ public class Survey {
 		 		System.out.pringln("qno : " + no);
 		 	}
 		 */
-		boolean bool = false;
-		bool = sSrvc.addAllDap(sVO);
+		/*
+		  	boolean bool = false; 
+		  	bool = sSrvc.addAllDap(sVO);
+		 */
+		boolean bool = sSrvc.applyTx(sVO);
+		
 		String view = "/www/survey/surveyResult.blp";
 		if(!bool) {
 			// 실패한 작업이 있는 경우
-			view = "/www/surbey/survey.blp";
+			view = "/www/survey/survey.blp";
+		} else {
+			sLog.info(sVO.getId() + " 님이 [ " + sVO.getSino() + " ] 번 설문에 참여 완료했습니다.");
 		}
 		
 		// 데이터 심고
@@ -73,6 +83,21 @@ public class Survey {
 		
 		// 뷰 정하고
 		mv.setViewName("survey/redirect");
+		return mv;
+	}
+	
+	// 설문 결과페이지 폼보기 요청
+	@RequestMapping("/surveyResult.blp")
+	public ModelAndView surveyResult(ModelAndView mv, SurveyVO sVO) {
+//		sSrvc.resultService(sVO);
+//		sSrvc.getResult(sVO);
+		sSrvc.setMunhangList(sVO);
+		
+		// 위의 함수 호출로 인해서 sVO의 변수에 변화가 생겼으므로 그냥 심어주면 된다.
+		// 데이터 심고
+		mv.addObject("DATA", sVO);
+		
+		mv.setViewName("survey/surveyResult");
 		return mv;
 	}
 }

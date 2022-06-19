@@ -3,7 +3,7 @@
 	xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.sptingframework.org/schema/tx"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						https://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/context 
@@ -38,4 +38,5 @@
 			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />		
 	</bean>
+	
 </beans>

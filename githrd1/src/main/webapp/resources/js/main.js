@@ -44,4 +44,43 @@ $(document).ready(function(){
 	$('#gbtn').click(function(){
 		$(location).attr('href', '/www/gBoard/gBoardList.blp');
 	});
+	
+	/* 댓글게시판 버튼 클릭이벤트 */
+	$('#rbtn').click(function(){
+		$(location).attr('href', '/www/reBoard/reBoardList.blp');
+	});
+	
+	/* 파일게시판 클릭이벤트 */
+	/*
+	$('#fbtn').click(function(){
+		$(location).attr('href', '/www/fileBoard/fileBoardList.blp');
+	});
+	*/
+	
+	$('#sbtn').click(function(){
+		$('#frm').attr('action', '/www/survey/surveyInfo.blp');
+		$('#frm').submit();
+	});
+	
+	$('#fbtn').click(function(){
+		$(location).attr('href', '/www/board/boardList.blp');
+	});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

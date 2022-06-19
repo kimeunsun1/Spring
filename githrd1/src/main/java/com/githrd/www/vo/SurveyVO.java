@@ -6,10 +6,11 @@ import java.text.*;
 public class SurveyVO {
 	private int mno, ano, cnt, sino, sqno, svno, upno, total;
 	private double per;
-	private String id, avatar, title, body, sdate;
+	private String id, avatar, title, body, sdate; // body : 설문문항내용과 설문 보기를 기억할 변수
 	private Date svdate;
 	private List<SurveyVO> bogi;
 	private int [] dap;
+	
 	public int getMno() {
 		return mno;
 	}
@@ -120,8 +121,8 @@ public class SurveyVO {
 	@Override
 	public String toString() {
 		return "SurveyVO [mno=" + mno + ", ano=" + ano + ", cnt=" + cnt + ", sino=" + sino + ", sqno=" + sqno
-				+ ", svno=" + svno + ", upno=" + upno + ", total=" + total + ", per=" + per + ", id=" + id + ", avatar="
-				+ avatar + ", title=" + title + ", body=" + body + ", sdate=" + sdate + ", svdate=" + svdate + ", bogi="
-				+ bogi + ", dap=" + Arrays.toString(dap) + "]";
+				+ ", svno=" + svno + ", total=" + total + ", per=" + per + ", id=" + id + ", avatar=" + avatar 
+				+ ", title=" + title + ", body=" + body + ", sdate=" + sdate + ", svdate=" + svdate + "]";
 	}
+	
 }
