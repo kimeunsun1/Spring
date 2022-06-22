@@ -61,7 +61,7 @@
 </c:if>
 <c:if test="${not empty SID and SCOUNT ne 0}">
 				<div class="w3-col">
-					<p class="w3-right-align"><small>* 현재 진행중인 설문중 참여하지 않은 설문이 [ <span class="w3-text-blue">${SCOUNT}</span> ]개 있습니다.<small></small></p>
+					<p class="w3-right-align"><small>* 현재 진행중인 설문중 참여하지 않은 설문이 [ <span class="w3-text-blue">${SCOUNT}</span> ]개 있습니다.</small></p>
 				</div>
 </c:if>
 
