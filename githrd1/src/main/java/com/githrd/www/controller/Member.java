@@ -19,6 +19,7 @@ import com.githrd.www.vo.*;
 public class Member {
 	
 	private static final Logger memberLog = LoggerFactory.getLogger(Member.class); // 4.
+	private static final Logger membLog = LoggerFactory.getLogger("memberLog"); // 4.
 	
 	@Autowired
 	MemberDao mDao;
@@ -53,10 +54,11 @@ public class Member {
 //		System.out.println("************** mVO.pw : " + mVO.getPw());
 		
 		int cnt = mDao.getLogin(mVO);
+		mVO.setCnt(cnt);
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId()); // 로그인 처리
 			// 로그처리
-			memberLog.info(mVO.getId() + " 님이 로그인 했습니다."); // 5. 로그메세지 출력....
+//			memberLog.info(mVO.getId() + " 님이 로그인 했습니다."); // 5. 로그메세지 출력....
 			
 			session.setAttribute("MSG_CHECK", "OK");
 			int count = gDao.getMyCount(mVO.getId());
@@ -145,11 +147,11 @@ public class Member {
 	*/
 	
 	@RequestMapping("/logout.blp")
-	public ModelAndView logout(ModelAndView mv, HttpSession session, String vw, String nowPage) {
+	public ModelAndView logout(ModelAndView mv, HttpSession session, MemberVO mVO, String vw, String nowPage) {
 		String sid = (String) session.getAttribute("SID");
 		session.removeAttribute("SID");
-		
-		memberLog.info("### " + sid + " 님이 로그아웃 했습니다.");
+		mVO.setResult("OK");
+//		memberLog.info("### " + sid + " 님이 로그아웃 했습니다.");
 		
 		if(vw == null) {
 			vw = "/www/";
@@ -261,9 +263,9 @@ public class Member {
 	}
 	
 	@RequestMapping("/myInfo.blp")
-	public ModelAndView myInfo(ModelAndView mv, String id) {
+	public ModelAndView myInfo(ModelAndView mv, MemberVO mVO) {
 		// 데이터 가져오고
-		MemberVO mVO = mDao.getIdInfo(id);
+		mVO = mDao.getIdInfo(mVO.getId());
 		// 뷰에 데이터 심고
 		mv.addObject("DATA" , mVO);
 		// 뷰 정하고

@@ -57,6 +57,9 @@
 						<input type="hidden" id="nowPage" name="nowPage" value="${param.nowPage}">
 						<input type="hidden" id="mno" name="mno" value="${DATA.mno}">
 						<input type="hidden" id="upno" name="upno" value="${DATA.upno}">
+						<input type="hidden" name="bno" value="${DATA.upno}">
+						<input type="hidden" id="view" name="vw" value="${param.vw}">
+						<input type="hidden" name="id" value="${SID}">
 						<%--
 							요청객체에 입력해 놓은 속성을 EL에서 꺼내는 방법은
 								${requestScope.속성키값}

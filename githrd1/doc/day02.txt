@@ -28,9 +28,9 @@
 	
 	서블릿 이름과 환경 설정 파일의 이름을 다르게 해야 한다.
 	
-	서블릿 등록
+	서블릿 등록과 서블릿 매핑은 반드시 한쌍으로 만들어야 한다.
 	
-	서
+	서블릿 매핑은 JSP 프로젝트와 동일...
 	
 ----------------------------------------------------------------------------------------------------------
 의존주입(DI : Dependency Injection)
@@ -194,8 +194,40 @@
 			이런 경우를 대비해서 만약 bean 을 찾지 못하더라도
 			에러 없이 진행을 시킬 수 있는 방법
 				형식 ]
-					@autowired(required=false)
+					@Autowired(required=false)
 					
+---------------------------------------------------------------------------------------------
+@Resource 에 의한 자동 의존 주입
+==> @Autowired 보다는 강력하지 않고
+	Bean 처리된 것 중에서 특정한 bean을 선택해서 자동 주입하는 기능
+	
+	형식 ]
+		@Resource(name="Bean의 아이디값")
+		변수선언
+		
+	예 ]
+		
+				<bean id="page" class="com.githrd.www.util.PageUtil">
+					<property name="nowPage" value="1" />
+					<property name="pageRow" value="10" />
+					<property name="pageGroup" value="10" />
+				</bean>
+				
+				<bean id="page1" class="com.githrd.www.util.PageUtil">
+					<property name="nowPage" value="1" />
+					<property name="pageRow" value="3" />
+					<property name="pageGroup" value="3" />
+				</bean>
+		
+	
+				==> 
+				@Controller
+				@RequestMapping("/gboard")
+				public class GuestBoard {
+					@Resource(name="page1")
+					PageUtil page;
+				}
+									
 	참고 ]
 	
 		@Resource 에서 원하는 빈을 찾는 순서
@@ -209,8 +241,8 @@
 
 ----------------------------------------------------------------------------------------------------
 참고 ]
-	명시적 의존 주입과 ㅁ구시적 자동 의존주입이 같이 존재할 경우에는
-	명시적 의족ㄴ 주입이 우선으로 적용된다.
+	명시적 의존 주입과 묵시적 자동 의존주입이 같이 존재할 경우에는
+	명시적 의존 주입이 우선으로 적용된다.
 	
 	XML 파일
 	

@@ -24,6 +24,10 @@
 	<div class="w3-content w3-center mx650">
 		<h1 class="w3-blue w3-padding w3-card-4">Login</h1>
 		<form method="POST" action="" class="w3-col w3-padding w3-card-4 w3-margin-top" id="frm" name="frm">
+<c:if test="${not empty param.vw}">
+			<input type="hidden" name="vw" value="${param.vw}">
+			<input type="hidden" name="nowPage" value="${param.nowPage}">
+</c:if>
 			<div class="w3-col w3-margin-top">
 				<label for="id" class="w3-col s2 w3-right-align w3-text-grey">I D : &nbsp;</label>
 				<div class="w3-col m9 pdl10">

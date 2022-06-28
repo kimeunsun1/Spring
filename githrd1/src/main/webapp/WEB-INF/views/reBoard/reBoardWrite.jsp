@@ -56,6 +56,7 @@
 											id="frm" name="frm" class="w3-col w3-margin-top">
 						<input type="hidden" id="nowPage" name="nowPage" value="${param.nowPage}">
 						<input type="hidden" id="mno" name="mno" value="${DATA.mno}">
+						<input type="hidden" name="id" value="${DATA.id}">
 						<%--
 							요청객체에 입력해 놓은 속성을 EL에서 꺼내는 방법은
 								${requestScope.속성키값}

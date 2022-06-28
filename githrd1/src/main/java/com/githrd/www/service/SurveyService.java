@@ -3,6 +3,7 @@ package com.githrd.www.service;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.githrd.www.dao.*;
 import com.githrd.www.vo.*;
@@ -68,6 +69,7 @@ public class SurveyService {
 	}
 	
 	// 전체 응답 입력 처리 서비스 함수
+	@Transactional
 	public boolean addAllDap(SurveyVO sVO) {
 		// 응답 번호를 기억하는 배열을 꺼낸다.
 		int[] dapArr = sVO.getDap();

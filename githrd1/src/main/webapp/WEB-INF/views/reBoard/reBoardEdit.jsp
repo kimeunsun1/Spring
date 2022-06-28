@@ -23,18 +23,25 @@
 		right: 5px;
 	}
 </style>
+<script type="text/javascript">
+/*
+ 	이것은 테스트!
+ 	정말 테스트!
+ 	라고 저장한 경우
+ 	
+ 	var txt = ' 이것은 테스트!
+ 		정말 테스트!';
+ 	로 변수가 만들어지기 때문에....
+ */
+</script>
 </head>
 <body>
 	<div class="w3-content mxw750 w3-margin-top">
 		<!-- 페이지 헤더 -->
 		<header class="w3-col w3-card-4 mgb20">
-			<h1 class="w3-pink w3-center w3-padding mg0">BlackPink 댓글 게시글 수정</h1>
+			<h1 class="w3-pink w3-center w3-padding mg0">GITHRD 게시글 수정</h1>
 			<nav class="w3-bar w3-amber">
 				<div class="w3-col w150 w3-button w3-small w3-green menubtn" id="hbtn">home</div>
-<c:if test="${empty SID}">
-				<div class="w3-col w150 w3-button w3-small w3-deep-orange w3-right menubtn" id="lbtn">login</div>
-				<div class="w3-col w150 w3-button w3-small w3-orange w3-right menubtn" id="jbtn">join</div>
-</c:if>
 <c:if test="${not empty SID}">
 				<div class="w3-col w150 w3-button w3-small w3-red w3-right menubtn" id="obtn">logout</div>
 </c:if>
@@ -56,6 +63,7 @@
 					<form method="POST" action="/whistle/reboard/reboardEditProc.blp" 
 											id="frm" name="frm" class="w3-col w3-margin-top">
 						<input type="hidden" id="nowPage" name="nowPage" value="${param.nowPage}">
+						<input type="hidden" name="vw" value="${param.vw}">
 						<input type="hidden" id="bno" name="bno" value="${DATA.bno}">
 						<textarea class="w3-col w3-input w3-border w3-padding ft12" id="body" name="body"
 									rows="3" style="resize: none;">${DATA.body}</textarea>

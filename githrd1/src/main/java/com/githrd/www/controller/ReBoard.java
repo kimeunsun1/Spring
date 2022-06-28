@@ -52,6 +52,7 @@ public class ReBoard {
 		if(msg != null) {
 			mv.addObject("MSG", msg);
 		}
+		
 		mv.addObject("LIST", list);
 		mv.addObject("PAGE", page);
 		mv.setViewName("reBoard/reBoardList");

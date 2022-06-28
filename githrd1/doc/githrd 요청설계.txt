@@ -219,38 +219,6 @@
 --------------------------------------------------------------------------------
 
 ================================================================================
-################ 설문 조사 요청 설계 #########################################
-================================================================================
-# 설문정보 폼 보기 요청
-요청내용	:	/www/survey/surveyInfo.blp
-파라미터	:	id
-컨트롤러	:	com.githrd.www.controller.Survey
-처리함수	:	surveyInfo()
-뷰			:	/WEB-INF/views/survey/surveyInfo.jsp
---------------------------------------------------------------------------------
-# 설문조사 폼 보기 요청
-요청내용	:	/www/survey/survey.blp
-파라미터	:	id, sino, title
-컨트롤러	:	com.githrd.www.controller.Survey
-처리함수	:	survey()
-뷰			:	/WEB-INF/views/survey/survey.jsp
---------------------------------------------------------------------------------
-# 설문조사 입력 처리 요청
-요청내용	:	/www/survey/surveyProc.blp
-파라미터	:	id, sino, title, dap[]
-컨트롤러	:	com.githrd.www.controller.Survey
-처리함수	:	surveyProc()
-뷰			:	/WEB-INF/views/survey/survey.jsp
---------------------------------------------------------------------------------
-# 설문조사 결과 폼 보기 요청
-요청내용	:	/www/survey/surveyResult.blp
-파라미터	:	id, sino, title
-컨트롤러	:	com.githrd.www.controller.Survey
-처리함수	:	surveyResult()
-뷰			:	/WEB-INF/views/survey/surveyResult.jsp
---------------------------------------------------------------------------------
-
-================================================================================
 ################ 파일 게시판 요청 설계 #########################################
 ================================================================================
 # 게시판 리스트 폼 보기 요청
@@ -281,4 +249,59 @@
 처리함수	:	boardWriteProc()
 뷰			:	/WEB-INF/views/board/boardWriteProc.jsp
 --------------------------------------------------------------------------------
+# 게시판 글 수정 폼 보기 요청
+요청내용	:	/www/board/boardEdit.blp
+파라미터	:	nowPage, bno
+컨트롤러	:	com.githrd.www.controller.Board
+처리함수	:	boardEdit()
+뷰			:	/WEB-INF/views/board/boardEdit.jsp
+--------------------------------------------------------------------------------
+# 게시판 첨부파일 삭제 처리 요청 - 비동기 통신
+요청내용	:	/www/board/fileDel.blp
+파라미터	:	fno
+컨트롤러	:	com.githrd.www.controller.Board
+처리함수	:	fileDel()
+뷰			:	json
+--------------------------------------------------------------------------------
+# 게시판 글등록 처리 요청
+요청내용	:	/www/board/boardEditProc.blp
+파라미터	:	nowPage, id, title, body[, file]
+컨트롤러	:	com.githrd.www.controller.Board
+처리함수	:	boardEditProc()
+뷰			:	/WEB-INF/views/board/boardWriteProc.jsp
+--------------------------------------------------------------------------------
+# 게시판 게시글 삭제 처리 요청
+요청내용	:	/www/board/boardDel.blp
+파라미터	:	nowPage, bno
+컨트롤러	:	com.githrd.www.controller.Board
+처리함수	:	boardDel()
+뷰			:	redirect.jsp
+					성공 : /www/board/boardDetail.blp
+					실패 : /www/board/boardEdit.blp
+--------------------------------------------------------------------------------
 
+
+================================================================================
+################ 사원 페이지 요청 설계 #########################################
+================================================================================
+# 사원페이지 폼 보기 요청
+요청내용	:	/www/emp/empPage.blp
+파라미터	:	무
+컨트롤러	:	com.githrd.www.controller.Emp
+처리함수	:	empPage()
+뷰			:	/WEB-INF/views/emp/empPage.jsp
+--------------------------------------------------------------------------------
+# 사원페이지 분류리스트조회 비동기 요청
+요청내용	:	/www/emp/selList.blp
+파라미터	:	sel
+컨트롤러	:	com.githrd.www.controller.Emp
+처리함수	:	selList()
+뷰			:	json : ArrayList<EmpVO> ==> Array<JSON>
+--------------------------------------------------------------------------------
+# 사원페이지 분류별 사원리스트조회 비동기 요청
+요청내용	:	/www/emp/partList.blp
+파라미터	:	job || dno
+컨트롤러	:	com.githrd.www.controller.Emp
+처리함수	:	partList()
+뷰			:	json : ArrayList<EmpVO> ==> Array<JSON>
+--------------------------------------------------------------------------------
