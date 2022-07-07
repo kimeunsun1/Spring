@@ -55,7 +55,11 @@
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
 /* 패딩 클래스*/
+.pdAll5 {
+	padding: 5px;
+}
 .pdAll10 {
 	padding: 10px;
 }
@@ -65,6 +69,9 @@
 
 .pdt10 {
 	padding-top: 10px;
+}
+.pdl5 {
+	padding-left: 5px;
 }
 .pdl10 {
 	padding-left: 10px;

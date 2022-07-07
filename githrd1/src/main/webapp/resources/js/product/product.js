@@ -1,0 +1,102 @@
+$(document).ready(function(){
+	$('pPanel').css('display', 'none');
+	$('.w3-select').not('#xlcate').css('display', 'none');
+	
+	$('.w3-select').not('#scate').change(function(){
+		var sno = $(this).val();
+		/*
+		$('#lcate').css('display', 'none');
+		$('#lcate').html('<option disabled selected>대분류 선택</option>');
+		*/
+		// $(this).parent().next().find('.w3-select').css('display','none');
+		var tarr = {
+				'lcate': '대분류선택',
+				'mcate': '중분류선택',
+				'scate': '소분류선택'
+		};
+		
+		var el = $(this).parent().next().find('.w3-select');
+		$(el).css('display','none');
+		
+		var tname = $(el).attr('id');
+		if(tname == 'lcate') {
+			$('#mcate, #scate').css('display', 'none');
+		} else if(tname == 'mcate') {
+			$('#scate').css('display', 'none');
+		}
+		
+		$(el).html('<option disabled selected>' + tarr[tname] + '</option>');
+		$.ajax({
+			url: '/www/cate/cateList.blp',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				cno: sno
+			},
+			success: function(arr){
+				if(arr.length != 0) {
+					for(var i = 0; i < arr.length; i++) {
+						$(el).append('<option value="' + arr[i].cno + '">' + arr[i].cname + '</option>');
+					}
+					$(el).css('display', 'block');
+				}
+			},
+			error: function(){
+				alert("### 통신 오류 ###");
+			}
+		});
+	});
+	
+	$('#scate').change(function(){
+		// 할일
+		// 기존 내용 지우고
+		$('#pPanel').css('display', 'none');
+		$('#[{anel').html('');
+		
+		// 분류 번호 가져오고...
+		var sno = $(this).val();
+		
+		$.ajax({
+			url: '/www/cate/productList.blp',
+			type: 'post',
+			dataType: 'json',
+			data: {
+				cno: sno
+			},
+			success: function(arr){
+				if(arr.length > 0) {
+					for(var i = 0; i < arr.length; i++) {
+						var stag =  '<div class="w3-quarter w3-center pdAll5 product" id="' + arr[i].pno + '">' +						
+									'	<div class="w3-col w3-card-4">' +
+									'		<img src="' + (arr[i].dir + arr[i].sname ) + '" alt="Product" style="width: 100%">' +
+									'		<div class="w3-col" style="height: 92px;"><h3>' + arr[i].pname + '</h3></div>' +
+									'		<h3>' + arr[i].pname + '</h3>' +
+									'		<p>가 격 : ' + arr[i].price + '</p>'
+									'		<p>제조사: ' + arr[i].manuf_co + '</p>' +
+									'	</div>' +
+									'</div>';
+						
+						$('#pPanel').append(stag);
+					}
+					$('#pPanel').css('display', 'block');
+				}
+			},
+			error: function(){
+				alert('### 통신 오류 ###'); // 모달창 처리
+			}
+		});
+	});
+	
+	$('#pPanel').on('click', '.product', function(){
+		// 할일
+		// 상품번호 알아내고
+		var sno = $(this).attr('id');
+		
+		// get 방식으로 전송
+//		$(location).attr('href', '/www/cate/productDetail.blp?pno=' + sno);
+		
+		// post 방식 전송
+		$(document.frm.pno).val(sno);
+		$('#frm').submit();
+	});
+});

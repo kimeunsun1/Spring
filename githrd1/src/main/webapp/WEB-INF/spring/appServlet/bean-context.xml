@@ -18,8 +18,10 @@
 	<bean id="rDao" class="com.githrd.www.dao.ReBoardDao" />
 	<bean id="sDao" class="com.githrd.www.dao.SurveyDao" />
 	<bean id="eDao" class="com.githrd.www.dao.EmpDao" />
+	<bean id="pDao" class="com.githrd.www.dao.ProductDao" />
+	<bean id="songDao" class="com.githrd.www.dao.SingerDao" />
 	
 	<!-- 서비스 클래스 빈처리 -->
 	<bean id="sSrvc" class="com.githrd.www.service.SurveyService" />
-	<bean id="sSrvc" class="com.githrd.www.service.BoardService" />
+	<bean id="bSrvc" class="com.githrd.www.service.BoardService" />
 </beans>

@@ -46,4 +46,20 @@ public class Emp {
 		List<EmpVO> list = eDao.partList(eVO);
 		return list;
 	}
+	
+	// 사원 정보 조회 요청 처리함수
+	@RequestMapping("/empInfo.blp")
+	@ResponseBody
+	public EmpVO empInfo(EmpVO eVO) {
+		eVO = eDao.getInfo(eVO);
+		return eVO;
+	}
+	
+	// 이니셜로 이름 리스트 조회 요청 처리함수
+	@RequestMapping("/enameList.blp")
+	@ResponseBody
+	public List<EmpVO> enameList(EmpVO eVO){
+		List<EmpVO> list = eDao.nameList(eVO);
+		return list;
+	}
 }
